@@ -18,7 +18,7 @@ intent: >
   by any of the three documents. A correct output is verifiable by
   confirming that every factual claim in the answer traces to a single cited
   section, that no content from a second document appears in the same answer,
-  and that the seven test questions produce the following results: carry-forward
+  and that the seven test questions produce the following result: carry-forward
   leave answered from HR section 2.6 with exact limit and forfeiture date;
   Slack installation answered from IT section 2.3 requiring written IT
   approval; home office equipment answered from Finance section 3.1 stating

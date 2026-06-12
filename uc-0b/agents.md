@@ -54,7 +54,7 @@ enforcement:
     is a violation
   - clause 2.7 must preserve the January–March usage window and the forfeiture
     consequence; omitting the deadline or the penalty is a violation
-  - clause 7.2 must be rendered with its absolute prohibition intact — "not
+  - clause 7.2 must be rendered with its absolute prohibition intact — "Not
     permitted under any circumstances" must not be softened to "generally not
     allowed", "discouraged", or any weaker formulation
   - binding verbs from the source document — must, will, requires, are forfeited,

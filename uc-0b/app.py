@@ -19,14 +19,24 @@ def parse_sections(text: str) -> dict:
     current_clause = None
     current_text = []
     for line in text.splitlines():
-        match = re.match(r"^(\d+\.\d+)\s+(.*)$", line.strip())
+        stripped_line = line.strip()
+        match = re.match(r"^(\d+\.\d+)\s+(.*)$", stripped_line)
         if match:
             if current_clause:
                 sections[current_clause] = " ".join(current_text).strip()
             current_clause = match.group(1)
             current_text = [match.group(2).strip()]
-        elif current_clause:
-            current_text.append(line.strip())
+            continue
+
+        if not current_clause or not stripped_line:
+            continue
+
+        if re.match(r"^[^A-Za-z0-9]+$", stripped_line):
+            continue
+        if re.match(r"^\d+\.\s+.+", stripped_line):
+            continue
+
+        current_text.append(stripped_line)
     if current_clause:
         sections[current_clause] = " ".join(current_text).strip()
     return sections
