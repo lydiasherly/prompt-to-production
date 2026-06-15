@@ -43,14 +43,24 @@ def parse_sections(text: str) -> Dict[str, str]:
     current_lines: List[str] = []
 
     for line in text.splitlines():
-        match = re.match(r"^(\d+\.\d+)\s+(.*)$", line.strip())
+        stripped_line = line.strip()
+        match = re.match(r"^(\d+\.\d+)\s+(.*)$", stripped_line)
         if match:
             if current_section is not None:
                 sections[current_section] = " ".join(current_lines).strip()
             current_section = match.group(1)
             current_lines = [match.group(2).strip()]
-        elif current_section is not None:
-            current_lines.append(line.strip())
+            continue
+
+        if not current_section or not stripped_line:
+            continue
+
+        if re.match(r"^[^A-Za-z0-9]+$", stripped_line):
+            continue
+        if re.match(r"^\d+\.\s+.+", stripped_line):
+            continue
+
+        current_lines.append(stripped_line)
 
     if current_section is not None:
         sections[current_section] = " ".join(current_lines).strip()
@@ -72,17 +82,17 @@ def answer_question(question: str, index: Dict[str, Dict[str, str]]) -> Dict[str
             "2.6",
         ),
         (
-            ["install slack on my work laptop"],
+            ["install slack on my work laptop", "install slack"],
             "policy_it_acceptable_use.txt",
             "2.3",
         ),
         (
-            ["home office equipment allowance"],
+            ["home office equipment allowance", "home office equipment"],
             "policy_finance_reimbursement.txt",
             "3.1",
         ),
         (
-            ["personal phone to access work files", "use my personal phone to access work files"],
+            ["personal phone", "personal device"],
             "policy_it_acceptable_use.txt",
             "3.1",
         ),
@@ -92,7 +102,7 @@ def answer_question(question: str, index: Dict[str, Dict[str, str]]) -> Dict[str
             None,
         ),
         (
-            ["claim da and meal receipts on the same day"],
+            ["claim da and meal receipts on the same day", "da and meal receipts"],
             "policy_finance_reimbursement.txt",
             "2.6",
         ),
